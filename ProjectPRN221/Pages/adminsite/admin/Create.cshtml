@@ -1,0 +1,86 @@
+﻿@page
+@model ProjectPRN221.Pages.adminsite.admin.CreateModel
+
+@{
+    ViewData["Title"] = "Create Admin";
+        Layout = "_AdminLayout";
+}
+
+        <div class="container-scroller">
+    <partial name="/Pages/_HeaderAdminsite.cshtml" model="new ProjectPRN221.Pages._HeaderAdminsiteModel()" />
+
+    <partial name="/Pages/_LeftPageAdminSite.cshtml" model="new ProjectPRN221.Pages._LeftPageAdminSiteModel()" />
+                <!-- partial -->
+                <div class="main-panel">        
+                    <div class="content-wrapper">
+                        <form class="forms-sample" method="post">
+                            <input type="hidden" asp-for="Admin.Status" value="Active">
+                            <div class="row">
+                                <div class="col-md-12 grid-margin card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Create Admin</h4>
+                                        <p class="card-description">
+                                            Fill all the bank
+                                        </p>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <label asp-for="Admin.Name">Name</label>
+                                                    <input type="text" class="form-control" asp-for="Admin.Name" placeholder="Name">
+                                                     <span asp-validation-for="Admin.Name" class="badge badge-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label asp-for="Admin.Username">Username</label>
+                                                    <input type="text" class="form-control" asp-for="Admin.Username" placeholder="Username">
+                                                    <span asp-validation-for="Admin.Username" class="badge badge-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label asp-for="Admin.Password">Password</label>
+                                                    <input type="password" class="form-control" asp-for="Admin.Password" placeholder="Password">
+                                                    <span asp-validation-for="Admin.Password" class="badge badge-danger"></span>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <label asp-for="Admin.Image">Image</label>
+                                                    <img id="preview-img" src="" alt="" style="width: 30%">
+                                                    <input type="file" asp-for="Admin.Image"  
+                                                    class="form-control" onchange="previewImage()" accept="image/*"  placeholder="Image">
+                                                    <span asp-validation-for="Admin.Image" class="badge badge-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label asp-for="Admin.Phone">Phone</label>
+                                                    <input type="text" class="form-control" asp-for="Admin.Phone" placeholder="Phone">
+                                                    <span asp-validation-for="Admin.Phone" class="badge badge-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label asp-for="Admin.Gmail">Email</label>
+                                                    <input type="email" class="form-control" asp-for="Admin.Gmail" placeholder="Email">
+                                                    <span asp-validation-for="Admin.Gmail" class="badge badge-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="text-align: center; margin-bottom: 30px">
+                                        <button type="submit" name="submit" class="btn btn-primary me-2">Submit</button>
+                                        <button class="btn btn-light">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+
+                    <footer class="footer">
+                        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash.</span>
+                            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2021. All rights reserved.</span>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>

@@ -1,0 +1,134 @@
+﻿@page
+@model ProjectPRN221.Pages.customersite.warranty.CreateModel
+@{
+    ViewData["Title"] = "Create Warranty";
+    Layout = "CustomerLayout";
+}
+
+    @*HEADER*@
+<partial name="/Pages/_HeaderCustomersite.cshtml" model="new ProjectPRN221.Pages._HeaderCustomerSiteModel()" />
+
+
+            <div class="col-lg-12 col-md-12">
+            <div>
+                <div style="text-align: center">
+                    <h1 class="">Add Warranty</h1>
+                </div>
+            </div>
+            <div>
+                <table style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Image</th>
+                            <th>Quantity Order</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <tr>
+                                <td>@Model.Warranty.Product_name</td> 
+                                <td style="width: 40%"><img src="@Model.Warranty.Image" alt="alt" style="width: 60%"/></td>
+                                <td>@Model.Warranty.Quantity_order</td> 
+                            </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!--input -->
+
+            <div>
+                <div style="text-align: center">
+                    <h3 class="">Information of Warranty</h3>
+                </div>
+            </div>
+            <div>
+                <form class="forms-sample" method="post" enctype="multipart/form-data" id="yourFormId">
+                    <table style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>Upload Image Product</th>
+                                <th>Status Product</th>
+                                <th>Quantity Warranty</th>
+                                <th>Submit</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                           @* Information of CUSTOMER*@
+                            <input type="hidden" name="customer_id" value="@Model.Customer.CustomerId">   
+
+                            @* Information of PRODUCT*@
+                            <input type="hidden" name="product_id" id="product_id" value="@Model.Warranty.Product_id">
+                            @* Information of ORDER AND ORDERDETAIL*@
+                            <input type="hidden" name="orderdetail_id" value="@Model.Warranty.Orderdetail_id">
+                            <input type="hidden" name="order_date" value="@Model.Warranty.Order_date">
+                            <input type="hidden" name="status" value="Wait">
+
+                            <tr>
+                                <td style="width: 30%">
+                                    <img  style="width: 90%" id="preview-img" src="" alt=""> <br>
+                                    <input type="file" asp-for="@Model.FileUploads" onchange="previewImage()" accept="image/*"/>
+                                </td> 
+
+                                <td>
+                                    <input type="text" name="product_status" id="product_status">
+                                </td> 
+
+                                <td>
+                                    <input type="text" name="quantity" id="quantity" required="" >
+                                </td> 
+
+                                <td>
+                                    <input type="submit" name="submit">
+                                </td> 
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+
+
+     @*FOOTER*@
+     @*<partial name="/Pages/_FooterCustomerSite.cshtml" model="new PROJECT_PRN221.Pages._FooterCustomerSiteModel()"/>*@
+
+ 
+        <script>
+                                        function previewImage() {
+                                            var preview = document.querySelector('#preview-img');
+                                            var file = document.querySelector('input[type=file]').files[0];
+                                            var reader = new FileReader();
+
+                                            reader.onloadend = function () {
+                                                preview.src = reader.result;
+                                            };
+
+                                            if (file) {
+                                                reader.readAsDataURL(file);
+                                            } else {
+                                                preview.src = "";
+                                            }
+                                        }
+        </script>
+        <script>
+            const inputField = document.getElementById('quantity');
+
+            inputField.addEventListener('input', function (event) {
+                validateInput();
+            });
+
+            function validateInput() {
+                let value = inputField.value;
+                value = value.replace(/[^\d]/g, ''); 
+                if (value === '') {
+                    inputField.value = 1;
+                } else {
+                    value = parseInt(value);
+                    if (isNaN(value) || value < 1 || value > @Model.Warranty.Quantity_order) {
+                        inputField.value = 1;
+                    } else {
+                        inputField.value = value;
+                    }
+                }
+            }
+        </script>

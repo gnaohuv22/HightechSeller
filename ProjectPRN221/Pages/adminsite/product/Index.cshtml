@@ -1,0 +1,164 @@
+﻿@page
+@model ProjectPRN221.Pages.adminsite.product.IndexModel
+
+@{
+    ViewData["Title"] = "Product";
+
+    Layout = "_AdminLayout";
+}
+
+<div class="container-scroller">
+
+    <!-- partial:../../partials/_navbar.html -->
+
+    <partial name="/Pages/_HeaderAdminsite.cshtml" model="new ProjectPRN221.Pages._HeaderAdminsiteModel()" />
+
+    <partial name="/Pages/_LeftPageAdminSite.cshtml" model="new ProjectPRN221.Pages._LeftPageAdminSiteModel()" />
+
+
+    <!-- partial -->
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-sm-flex justify-content-between align-items-start">
+                            <div>
+                                <h4 class="card-title card-title-dash">Product</h4>
+                            </div>
+
+                            @*Search Product for Name*@
+                            <div>
+                                <form class="search-form" method="post">
+                                    <input type="hidden" name="service" value="searchProduct">
+                                    <input type="text" class="form-control" name="name" placeholder="Search Here" title="Search here">
+                                </form>
+                            </div>
+
+
+                            <div>
+                                <form class="search-form" enctype="multipart/form-data" method="post">
+                                    <input type="hidden" name="service" value="inputFile">
+                                    <div class="d-flex">
+                                        <input type="file" class="form-control" name="inputFile" style="width: 200px;" accept=".json">
+                                        <button type="submit" class="badge badge-info">Import</button>
+                                    </div>
+                                </form>
+                            </div>
+
+
+                            @*Download EXCEL*@
+                            <div>
+                                <a href="/adminsite/product/Create" class="btn btn-primary text-white me-0">Create product</a>
+                                <a onclick="exportToExcel()" class="btn btn-primary text-white me-0">Export</a>
+                            </div>
+
+                        </div>
+
+                        @*                                    <div style="text-align: center">
+                        <p class="badge badge-danger">${ms}</p>
+                        </div> *@
+
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="myTable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Product Name</th>
+                                        <th>Image</th>
+                                        <th>List Price</th>
+                                        <th>Discount</th>
+                                        <th>Category Name</th>
+                                        <th>Brand Name</th>
+                                        <th>Status</th>
+                                        <th>Update</th>
+                                        <th>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Product)
+
+
+
+                                    {
+                                        <tr data-product-id="@item.ProductId">
+                                            <td>@item.ProductId</td>
+                                            <td>@item.ProductName</td>
+                                            <td><img src="@item.Image" alt="alt" /></td>
+                                            <td class="number">@item.ListPrice</td>
+                                            <td>@item.Discount</td>
+                                            <td>@item.Category.CategoryName</td>
+                                            <td>@item.Brand.BrandName</td>
+                                            <td>
+                                                <div class="@(item.Status.Equals("Stocking") ? "badge badge-opacity-success" : "badge badge-opacity-danger")">
+                                                    @item.Status
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="badge badge-info"><a asp-page="./Edit" asp-route-id="@item.ProductId">Update</a></div>
+                                                <div class="badge badge-danger"><a asp-page="./Delete" asp-route-id="@item.ProductId">Delete</a></div>
+                                            </td>
+                                            <td><div class="badge badge-success"><a href="/customersite/productdetail/Index?id=@item.ProductId" target="_blank">Details</a></div></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+
+                            @*PAGING*@
+                            <div style="text-align: center">
+                                @if (Model.Product.PageIndex > 1)
+
+                                {
+                                    <a href="?pageIndex=@(Model.Product.PageIndex - 1)">Previous</a>
+                                }
+
+                                else
+
+                                {
+                                    <span>Previous</span>
+                                }
+
+                                @for (int i = 1; i <= Model.Product.TotalPages; i++)
+
+                                {
+                                    @if (i == Model.Product.PageIndex)
+
+                                    {
+                                        <span>@i</span>
+                                    }
+
+                                    else
+
+                                    {
+                                        <a href="?pageIndex=@i">@i</a>
+                                        @*@if (Model.Admin. == null)
+                                {
+                                <a href="?page=@i">@i</a>
+                                }*@
+                                    }
+                                }
+
+                                @if (Model.Product.PageIndex < Model.Product.TotalPages)
+
+                                {
+                                    <a href="?pageIndex=@(Model.Product.PageIndex + 1)">Next</a>
+                                }
+
+                                else
+
+                                {
+                                    <span>Next</span>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

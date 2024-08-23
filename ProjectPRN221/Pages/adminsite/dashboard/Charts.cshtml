@@ -1,0 +1,298 @@
+﻿@page
+@model ProjectPRN221.Pages.adminsite.dashboard.ChartsModel
+@{
+    ViewData["Title"] = "Charts";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="~/admin/vendors/feather/feather.css">
+        <link rel="stylesheet" href="~/admin/vendors/mdi/css/materialdesignicons.min.css">
+        <link rel="stylesheet" href="~/admin/vendors/ti-icons/css/themify-icons.css">
+        <link rel="stylesheet" href="~/admin/vendors/typicons/typicons.css">
+        <link rel="stylesheet" href="~/admin/vendors/simple-line-icons/css/simple-line-icons.css">
+        <link rel="stylesheet" href="~/admin/vendors/css/vendor.bundle.base.css">
+        <link rel="stylesheet" href="~/admin/css/vertical-layout-light/style.css">
+    </head>
+    <body>
+
+        <div class="container-scroller">
+
+        <partial name="/Pages/_HeaderAdminsite.cshtml" model="new ProjectPRN221.Pages._HeaderAdminsiteModel()" />
+
+        <partial name="/Pages/_LeftPageAdminSite.cshtml" model="new ProjectPRN221.Pages._LeftPageAdminSiteModel()" />
+
+                <div class="main-panel">
+                    <div class="content-wrapper">
+                        <div class="row">
+                            <div class="col-lg-6 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Total Warranty Status</h4>
+                                        <canvas id="pieChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Total Order 7 Days</h4>
+                                        <canvas id="barChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Total Income 7 Days</h4>
+                                        <canvas id="areaChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Total Order Status</h4>
+                                        <canvas id="doughnutChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        <script src="~/admin/vendors/js/vendor.bundle.base.js"></script>
+        <script src="~/admin/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+        <script src="~/admin/js/off-canvas.js"></script>
+        <script src="~/admin/js/hoverable-collapse.js"></script>
+        <script src="~/admin/js/template.js"></script>
+        <script src="~/admin/js/settings.js"></script>
+        <script src="~/admin/js/todolist.js"></script>
+        <script src="~/admin/vendors/chart.js/Chart.min.js"></script>
+
+        <script>
+            $(function () {
+                /* ChartJS
+                 * -------
+                 * Data and config for chartjs
+                 */
+                'use strict';
+                var data = {
+                    labels: ["@(Model.currentDay-6)/@(Model.currentMonth)", 
+                             "@(Model.currentDay-5)/@(Model.currentMonth)", 
+                             "@(Model.currentDay-4)/@(Model.currentMonth)", 
+                             "@(Model.currentDay-3)/@(Model.currentMonth)", 
+                             "@(Model.currentDay-2)/@(Model.currentMonth)", 
+                             "@(Model.currentDay-1)/@(Model.currentMonth)", 
+                             "@(Model.currentDay)/@(Model.currentMonth)"],
+
+                                                                                                                                datasets: [{
+                                                                                                                                        label: '# of Votes',
+                    data: [@Model.o7,@Model.o6,@Model.o5,@Model.o4,@Model.o3,@Model.o2,@Model.o1],
+                                                                                                                                        backgroundColor: [
+                                                                                                                                            'rgba(255, 99, 132, 0.2)',
+                                                                                                                                            'rgba(54, 162, 235, 0.2)',
+                                                                                                                                            'rgba(255, 206, 86, 0.2)',
+                                                                                                                                            'rgba(75, 192, 192, 0.2)',
+                                                                                                                                            'rgba(153, 102, 255, 0.2)',
+                                                                                                                                            'rgba(54, 162, 235, 0.2)'
+                                                                                                                                        ],
+                                                                                                                                        borderColor: [
+                                                                                                                                            'rgba(255,99,132,1)',
+                                                                                                                                            'rgba(54, 162, 235, 1)',
+                                                                                                                                            'rgba(255, 206, 86, 1)',
+                                                                                                                                            'rgba(75, 192, 192, 1)',
+                                                                                                                                            'rgba(153, 102, 255, 1)',
+                                                                                                                                            'rgba(54, 162, 235, 1)'
+                                                                                                                                        ],
+                                                                                                                                        borderWidth: 1,
+                                                                                                                                        fill: false
+                                                                                                                                    }]
+                                                                                                                            };
+
+
+                                                                                                                            var options = {
+                                                                                                                                scales: {
+                                                                                                                                    yAxes: [{
+                                                                                                                                            ticks: {
+                                                                                                                                                beginAtZero: true
+                                                                                                                                            }
+                                                                                                                                        }]
+                                                                                                                                },
+                                                                                                                                legend: {
+                                                                                                                                    display: false
+                                                                                                                                },
+                                                                                                                                elements: {
+                                                                                                                                    point: {
+                                                                                                                                        radius: 0
+                                                                                                                                    }
+                                                                                                                                }
+
+                                                                                                                            };
+
+                var OrderData = {
+                                                                                                                                datasets: [{
+                data: [@Model.orderWait,@Model.orderProcess, @Model.orderDone, @Model.orderCancel],
+                                                                                                                                        backgroundColor: [
+                                                                                                                                            'rgba(255, 99, 132, 0.5)',
+                                                                                                                                            'rgba(54, 162, 235, 0.5)',
+                                                                                                                                            'rgba(255, 206, 86, 0.5)',
+                                                                                                                                            'rgba(75, 192, 192, 0.5)',
+                                                                                                                                            'rgba(153, 102, 255, 0.5)',
+                                                                                                                                            'rgba(255, 159, 64, 0.5)'
+                                                                                                                                        ],
+                                                                                                                                        borderColor: [
+                                                                                                                                            'rgba(255,99,132,1)',
+                                                                                                                                            'rgba(54, 162, 235, 1)',
+                                                                                                                                            'rgba(255, 206, 86, 1)',
+                                                                                                                                            'rgba(75, 192, 192, 1)',
+                                                                                                                                            'rgba(153, 102, 255, 1)',
+                                                                                                                                            'rgba(255, 159, 64, 1)'
+                                                                                                                                        ],
+                                                                                                                                    }],
+
+                                                                                                                                // These labels appear in the legend and in the tooltips when hovering different arcs
+                                                                                                                                labels: [
+                                                                                                                                    'Wait',
+                                                                                                                                    'Process',
+                                                                                                                                    'Done',
+                                                                                                                                    'Cancel'
+                                                                                                                                ]
+                                                                                                                            };
+
+                var WarrantyData = {
+                                                                                                                                datasets: [{
+                data: [@Model.warrantyWait,@Model.warrantyProcess, @Model.warrantyDone],
+                                                                                                                                        backgroundColor: [
+                                                                                                                                            'rgba(255, 99, 132, 0.5)',
+                                                                                                                                            'rgba(54, 162, 235, 0.5)',
+                                                                                                                                            'rgba(255, 206, 86, 0.5)',
+                                                                                                                                            'rgba(75, 192, 192, 0.5)',
+                                                                                                                                            'rgba(153, 102, 255, 0.5)',
+                                                                                                                                            'rgba(255, 159, 64, 0.5)'
+                                                                                                                                        ],
+                                                                                                                                        borderColor: [
+                                                                                                                                            'rgba(255,99,132,1)',
+                                                                                                                                            'rgba(54, 162, 235, 1)',
+                                                                                                                                            'rgba(255, 206, 86, 1)',
+                                                                                                                                            'rgba(75, 192, 192, 1)',
+                                                                                                                                            'rgba(153, 102, 255, 1)',
+                                                                                                                                            'rgba(255, 159, 64, 1)'
+                                                                                                                                        ],
+                                                                                                                                    }],
+
+                                                                                                                                // These labels appear in the legend and in the tooltips when hovering different arcs
+                                                                                                                                labels: [
+                                                                                                                                    'Wait',
+                                                                                                                                    'Process',
+                                                                                                                                    'Done',
+                                                                                                                                ]
+                                                                                                                            };
+
+                                                                                                                            var doughnutPieOptions = {
+                                                                                                                                responsive: true,
+                                                                                                                                animation: {
+                                                                                                                                    animateScale: true,
+                                                                                                                                    animateRotate: true
+                                                                                                                                }
+                                                                                                                            };
+                 var areaData = {
+                    labels: ["@(Model.currentDay-6)/@(Model.currentMonth)", 
+                             "@(Model.currentDay-5)/@(Model.currentMonth)", 
+                             "@(Model.currentDay-4)/@(Model.currentMonth)", 
+                             "@(Model.currentDay-3)/@(Model.currentMonth)", 
+                             "@(Model.currentDay-2)/@(Model.currentMonth)", 
+                             "@(Model.currentDay-1)/@(Model.currentMonth)", 
+                             "@(Model.currentDay)/@(Model.currentMonth)"],
+                                                                                                                                                                                                                                            datasets: [{
+                                                                                                                                                                                                                                                    label: 'Total',
+                 data: [@Model.ti7,@Model.ti6,@Model.ti5,@Model.ti4,@Model.ti3,@Model.ti2,@Model.ti1],
+                                                                                                                                                                                                                                                    backgroundColor: [
+                                                                                                                                                                                                                                                        'rgba(255, 99, 132, 0.2)',
+                                                                                                                                                                                                                                                        'rgba(54, 162, 235, 0.2)',
+                                                                                                                                                                                                                                                        'rgba(255, 206, 86, 0.2)',
+                                                                                                                                                                                                                                                        'rgba(75, 192, 192, 0.2)',
+                                                                                                                                                                                                                                                        'rgba(153, 102, 255, 0.2)',
+                                                                                                                                                                                                                                                        'rgba(255, 159, 64, 0.2)',
+                                                                                                                                                                                                                                                        'rgba(255, 159, 64, 0.2)'
+                                                                                                                                                                                                                                                    ],
+                                                                                                                                                                                                                                                    borderColor: [
+                                                                                                                                                                                                                                                        'rgba(255,99,132,1)',
+                                                                                                                                                                                                                                                        'rgba(54, 162, 235, 1)',
+                                                                                                                                                                                                                                                        'rgba(255, 206, 86, 1)',
+                                                                                                                                                                                                                                                        'rgba(75, 192, 192, 1)',
+                                                                                                                                                                                                                                                        'rgba(153, 102, 255, 1)',
+                                                                                                                                                                                                                                                        'rgba(255, 159, 64, 1)',
+                                                                                                                                                                                                                                                        'rgba(255, 159, 64, 1)'
+                                                                                                                                                                                                                                                    ],
+                                                                                                                                                                                                                                                    borderWidth: 1,
+                                                                                                                                                                                                                                                    fill: true, // 3: no fill
+                                                                                                                                                                                                                                                }]
+                                                                                                                                                                                                                                        };
+
+                                                                                                                                                                                                                                        var areaOptions = {
+                                                                                                                                                                                                                                            plugins: {
+                                                                                                                                                                                                                                                filler: {
+                                                                                                                                                                                                                                                    propagate: true
+                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                        };
+
+                                                                                                                                                                                                                                        // Get context with jQuery - using jQuery's .get() method.
+                                                                                                                                                                                                                                        if ($("#barChart").length) {
+                                                                                                                                                                                                                                            var barChartCanvas = $("#barChart").get(0).getContext("2d");
+                                                                                                                                                                                                                                            // This will get the first returned node in the jQuery collection.
+                                                                                                                                                                                                                                            var barChart = new Chart(barChartCanvas, {
+                                                                                                                                                                                                                                                type: 'bar',
+                                                                                                                                                                                                                                                data: data,
+                                                                                                                                                                                                                                                options: options
+                                                                                                                                                                                                                                            });
+                                                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                                                        if ($("#lineChart").length) {
+                                                                                                                                                                                                                                            var lineChartCanvas = $("#lineChart").get(0).getContext("2d");
+                                                                                                                                                                                                                                            var lineChart = new Chart(lineChartCanvas, {
+                                                                                                                                                                                                                                                type: 'line',
+                                                                                                                                                                                                                                                data: data,
+                                                                                                                                                                                                                                                options: options
+                                                                                                                                                                                                                                            });
+                                                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                                                        if ($("#doughnutChart").length) {
+                                                                                                                                                                                                                                            var doughnutChartCanvas = $("#doughnutChart").get(0).getContext("2d");
+                                                                                                                                                                                                                                            var doughnutChart = new Chart(doughnutChartCanvas, {
+                                                                                                                                                                                                                                                type: 'doughnut',
+                                                                                                                                                                                                                                                data: OrderData,
+                                                                                                                                                                                                                                                options: doughnutPieOptions
+                                                                                                                                                                                                                                            });
+                                                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                                                        if ($("#pieChart").length) {
+                                                                                                                                                                                                                                            var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
+                                                                                                                                                                                                                                            var pieChart = new Chart(pieChartCanvas, {
+                                                                                                                                                                                                                                                type: 'pie',
+                                                                                                                                                                                                                                                data: WarrantyData,
+                                                                                                                                                                                                                                                options: doughnutPieOptions
+                                                                                                                                                                                                                                            });
+                                                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                                                        if ($("#areaChart").length) {
+                                                                                                                                                                                                                                            var areaChartCanvas = $("#areaChart").get(0).getContext("2d");
+                                                                                                                                                                                                                                            var areaChart = new Chart(areaChartCanvas, {
+                                                                                                                                                                                                                                                type: 'line',
+                                                                                                                                                                                                                                                data: areaData,
+                                                                                                                                                                                                                                                options: areaOptions
+                                                                                                                                                                                                                                            });
+                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                    });
+        </script>
+
+    </body>
+</html>

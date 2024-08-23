@@ -1,0 +1,103 @@
+﻿@page
+@model ProjectPRN221.Pages.customersite.authenticate.register.IndexModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = "CustomerLayout";
+}
+
+       @*HEADER*@
+<partial name="/Pages/_HeaderGuestSite.cshtml" model="new ProjectPRN221.Pages._HeaderGuestSiteModel()" />
+
+        @*section*@
+        <section class="site-banner jarallax min-height300 padding-large" style="background: url(Client/images/iphone14_banners.png) no-repeat;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="page-title">Register</h1>
+                        <div class="breadcrumbs">
+                            <span class="item">
+                                <a href="HomeController">Home /</a>
+                            </span>
+                            <span class="item">Register</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        @*FORM*@
+
+         <section class="login-tabs padding-large no-padding-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="tabs-listing">
+
+                        <nav>
+                            <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
+                                <button class="nav-link active" id="nav-sign-in-tab" data-bs-toggle="tab" data-bs-target="#nav-sign-in" type="button" role="tab" aria-controls="nav-sign-in" aria-selected="true">Register</button>
+                            </div>
+                        </nav>
+                        
+                        @*FORM*@
+                           <form method="post"> 
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade active show" id="nav-sign-in" role="tabpanel" aria-labelledby="nav-sign-in-tab">
+                                      <input type="hidden" asp-for="Customer.Gender">
+                                        <p class="form-group">
+                                            <label asp-for="Customer.Username">Username *</label>
+                                            <input type="text" asp-for="Customer.Username" placeholder="Your Username" class="u-full-width bg-light" required="">
+                                            <span asp-validation-for="Customer.Username" class="badge badge-danger"></span>
+                                        </p>
+                                        <p class="form-group">
+                                            <label asp-for="Customer.Password">Password *</label>
+                                            <input type="password" asp-for="Customer.Password" placeholder="Your Password" class="u-full-width bg-light" required="">
+                                             <span asp-validation-for="Customer.Password" class="badge badge-danger"></span>
+                                        </p>
+
+                                        <p class="form-group">
+                                            <label asp-for="Customer.Name">Full Name</label>
+                                            <input type="text" asp-for="Customer.Name" placeholder="Your FullName" class="u-full-width bg-light">
+                                        </p>
+
+                                        <p class="form-group">
+                                            <label asp-for="Customer.Dob">Date of birth</label>
+                                            <input type="date" asp-for="Customer.Dob" class="u-full-width bg-light" >
+                                        </p>
+                                        <p>
+                                            <label for="gender">Gender: </label>
+                                            <input type="radio" name="gender" value="1"> Male  
+                                            <input style="margin-left:50px" type="radio" name="gender" value="0" > Female
+                                        </p>  
+
+                                        <p class="form-group">
+                                            <label asp-for="Customer.Email">Email *</label>
+                                            <input type="text" asp-for="Customer.Email" placeholder="Your Email Address" class="u-full-width bg-light" required="">
+                                             <span asp-validation-for="Customer.Email" class="badge badge-danger"></span>
+                                        </p>
+
+                                        <p class="form-group">
+                                            <label asp-for="Customer.Phone">Phone *</label>
+                                            <input type="text" asp-for="Customer.Phone"  placeholder="Phone" class="u-full-width bg-light" required="">
+                                        </p> 
+                                        <p class="form-group">
+                                            <label asp-for="Customer.Address">Address</label>
+                                            <input type="text" asp-for="Customer.Address" placeholder="Address" class="u-full-width bg-light" required="">
+                                        </p> 
+                                        <label>
+                                            <input type="checkbox">
+                                            <span class="label-body " required>I agree to the <a href="PrivacyCustomerController">Privacy Policy</a></span>
+                                        </label>
+                                        <button type="submit" name="submit" class="btn btn-dark btn-full btn-medium">Register</button>        
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+       @*FOOTER*@
+<partial name="/Pages/_FooterCustomerSite.cshtml" model="new ProjectPRN221.Pages._FooterCustomerSiteModel()" />

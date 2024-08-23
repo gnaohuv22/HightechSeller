@@ -1,0 +1,79 @@
+﻿@page
+@model ProjectPRN221.Pages.adminsite.profile.IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "_AdminLayout";
+}
+
+        <div class="container-scroller">
+
+    <partial name="/Pages/_HeaderAdminsite.cshtml" model="new ProjectPRN221.Pages._HeaderAdminsiteModel()" />
+
+    <partial name="/Pages/_LeftPageAdminSite.cshtml" model="new ProjectPRN221.Pages._LeftPageAdminSiteModel()" />
+
+                <div class="container" style="margin-top: 50px">
+                        <div class="row gutters">
+                            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <div class="account-settings">
+                                            <div class="user-profile">
+                                                <div class="user-avatar">
+                                                    <img src="@Model.Admin.Image" alt="Admin" style="width: 100px; height: 100px">
+                                                </div>
+                                                <h5 class="user-name">@Model.Admin.Name</h5>
+                                                <h6 class="user-email">@Model.Admin.Gmail</h6>
+                                            </div>
+                                            <div class="about">
+                                                <a href="/adminsite/profile/Edit" class="btn btn-secondary">Edit Profile</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <div class="row gutters">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                <h6 class="mb-2 text-primary">Personal Details</h6>
+                                            </div>
+                                      
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="fullName">Full Name</label>
+                                                    <input type="text" name="name" class="form-control" id="fullName" value="@Model.Admin.Name"readonly="">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="eMail">Email</label>
+                                                    <input type="email" name="email" class="form-control" id="eMail" value="@Model.Admin.Gmail" readonly="">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="phone">Phone</label>
+                                                    <input type="text" name="phone"class="form-control" id="phone" value="@Model.Admin.Phone"readonly="">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="dob">Dob</label>
+                                                    <input type="text" name="dob"class="form-control" id="dob" value="@Model.Admin.Dob"readonly="">
+                                                </div>
+                                            </div>
+                                            <div class="row gutters">
+                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                    <div class="text-right" style="margin-top: 30px;">
+                                                        <a href="/adminsite/dashboard" id="submit" name="submit" class="btn btn-secondary ">Back to Home</a>                                  
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>

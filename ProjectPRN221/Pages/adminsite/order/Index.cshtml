@@ -1,0 +1,193 @@
+﻿@page
+@model ProjectPRN221.Pages.adminsite.order.IndexModel
+
+@{
+    ViewData["Title"] = "Order";
+    Layout = "_AdminLayout";
+}
+
+                <div class="container-scroller">
+
+    <partial name="/Pages/_HeaderAdminsite.cshtml" model="new ProjectPRN221.Pages._HeaderAdminsiteModel()" />
+
+    <partial name="/Pages/_LeftPageAdminSite.cshtml" model="new ProjectPRN221.Pages._LeftPageAdminSiteModel()" />
+
+                <!-- partial -->
+                <div class="main-panel">
+                    <div class="content-wrapper">
+                        <div class="col-lg-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-sm-flex justify-content-between align-items-start">
+                                        <div>
+                                            <h4 class="card-title card-title-dash">Order</h4>
+                                        </div>
+
+                                        <div>
+                                                <a onclick="exportToExcel()" class="btn btn-primary text-white me-0"><i class="icon-download"></i> Export</a>
+                                        </div>
+                                    </div>
+                                        <div class="d-sm-flex justify-content-evenly" style="margin-bottom: 20px">
+                                            <div>
+                                            <form method="post">
+                                                <label for="title">Search By Month-Year</label>
+                                                <input type="hidden" name="service" value="SearchByMonth"/>
+                                                 <div class="d-flex">
+                                                <input type="month" name="month" for="title" class="form-control" style="margin-right: 15px"/>
+                                                <button type="submit" class="btn btn-success  btn-sm">Search</button>
+                                                 </div>
+                                            </form>
+                                            </div>
+                                            <div>
+                                            <form method="post">
+                                                <label for="title">Search By Day-Month-Year</label>
+                                                <input type="hidden" name="service" value="SearchByDate"/>
+                                                 <div class="d-flex">
+                                                <input type="date" name="date" for="title" class="form-control" style="margin-right: 15px"/>
+                                                <button type="submit" class="btn btn-success  btn-sm">Search</button>
+                                                 </div>
+                                            </form>
+                                            </div>
+                                        </div>
+                                    <div class="d-sm-flex justify-content-evenly">
+                                        <p class="badge badge-info"><a href="/adminsite/order/Index?service=displayOrderStatus&status=Wait">Wait: @Model.Wait</a></p>
+                                        <p class="badge badge-warning"><a href="/adminsite/order/Index?service=displayOrderStatus&status=Process">Process: @Model.Process </a></p>
+                                        <p class="badge badge-success"><a href="/adminsite/order/Index?service=displayOrderStatus&status=Done">Done: @Model.Done </a></p>
+                                        <p class="badge badge-danger"><a href="/adminsite/order/Index?service=displayOrderStatus&status=Cancel">Cancel: @Model.Cancel</a></p>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover" id="myTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Id</th>
+                                                    <th>Customer Name</th>
+                                                    <th>Name Receiver</th>
+                                                    <th>Phone Receiver</th>
+                                                    <th>Address Receiver</th>
+                                                    <th>Total Price</th>
+                                                    <th>Order Date</th>
+                                                    <th>Payment</th>
+                                                    <th>Status</th>
+                                                    <th>Detail</th>
+                                        @if (!string.IsNullOrEmpty(Model.Status))
+                                        {
+                                                    @if (Model.Status.Equals("Wait"))
+                                                    {
+                                                         <th>Update Status</th>
+                                                    }
+                                                    @if (Model.Status.Equals("Process"))
+                                                    {
+                                                         <th>Update Status</th>
+                                                    }                                            
+                                        }
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                        @foreach (var item in Model.Order)
+                                        {
+                                                    <tr>
+                                                        <td>@item.OrderId</td>
+                                                        <td>@item.Customer.Name</td>
+                                                        <td>@item.NameReceiver</td>
+                                                        <td>@item.PhoneReceiver</td>
+                                                        <td>@item.AddressReceiver</td> 
+                                                        <td class="number">@item.TotalPrice</td> 
+                                                        <td>@item.OderDate</td> 
+                                                        <td>@item.Payment</td> 
+                                                        <td>
+                                                         <div class="@(item.Status.Equals("Wait") ? "badge badge-opacity-info" :
+                                                                  item.Status.Equals("Process") ? "badge badge-opacity-warning" :
+                                                                  item.Status.Equals("Done") ? "badge badge-opacity-success" :
+                                                                  item.Status.Equals("Cancel") ? "badge badge-opacity-danger" :
+                                                                  "default-class")">
+                                                        @item.Status
+                                                        </div>
+                                                        </td> 
+
+                                                        <td><div class="badge badge-info"><a href="/adminsite/orderdetail/?id=@item.OrderId">Detail</a></div></td>  
+                                            @if (!string.IsNullOrEmpty(Model.Status))
+                                            {
+                                                @if (Model.Status.Equals("Wait"))
+                                            {
+                                                            <td> 
+                                                                <form method="post"> 
+                                                                    <input type="hidden" name="service" value="updateStatus">
+                                                                    <input  type="hidden" name="id" value="@item.OrderId"> 
+                                                                    <label  for="status">Status: </label> 
+                                                                    <Select class="input" name="status" id="status"> 
+                                                                        <option selected value="Wait">Wait</option>
+                                                                        <option value="Process">Process</option> 
+                                                                        <option value="Cancel">Cancel</option> 
+                                                                    </Select> 
+                                                                    <input type="submit" value="Update">
+                                                                </form> 
+                                                            </td>                                                
+                                            }
+                                            @if (Model.Status.Equals("Process"))
+                                            {
+                                                            <td> 
+                                                                <form method="post"> 
+                                                                    <input type="hidden" name="service" value="updateStatus">
+                                                                    <input  type="hidden" name="id" value="@item.OrderId"> 
+                                                                    <label  for="status">Status: </label> 
+                                                                    <Select class="input" name="status" id="status"> 
+                                                                        <option  value="Wait">Wait</option>
+                                                                        <option selected value="Process">Process</option> 
+                                                                        <option value="Done">Done</option>
+                                                                    </Select> 
+                                                                    <input type="submit" value="Update">
+                                                                </form> 
+                                                            </td>                                                
+                                            }
+                                            }
+
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                     @*PAGING*@ 
+
+                                    <div style="text-align: center">
+                                        @if (Model.Order.PageIndex > 1)
+                                        {
+                                            <a href="?pageIndex=@(Model.Order.PageIndex - 1)">Previous</a>
+                                        }
+                                        else
+                                        {
+                                            <span>Previous</span>
+                                        }
+
+                                        @for (int i = 1; i <= Model.Order.TotalPages; i++)
+                                        {
+                                            @if (i == Model.Order.PageIndex)
+                                            {
+                                                <span>@i</span>
+                                            }
+                                            else
+                                            {   
+                                                <a href="?pageIndex=@i">@i</a>
+                                                @*@if (Model.Admin. == null)
+                                                {
+                                                    <a href="?page=@i">@i</a>
+                                                }*@
+                                            }
+                                        }
+
+                                        @if (Model.Order.PageIndex < Model.Order.TotalPages)
+                                        {
+                                            <a href="?pageIndex=@(Model.Order.PageIndex + 1)">Next</a>
+                                        }
+                                        else
+                                        {
+                                            <span>Next</span>
+                                        }
+                                    </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>

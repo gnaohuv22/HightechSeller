@@ -1,0 +1,57 @@
+﻿@page
+@model ProjectPRN221.Pages.adminsite.contact.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete Contact";
+    Layout = "_AdminLayout";
+}
+
+       <div class="container-scroller">
+    <partial name="/Pages/_HeaderAdminsite.cshtml" model="new ProjectPRN221.Pages._HeaderAdminsiteModel()" />
+
+    <partial name="/Pages/_LeftPageAdminSite.cshtml" model="new ProjectPRN221.Pages._LeftPageAdminSiteModel()" />
+                <!-- partial -->
+                <div class="main-panel">        
+                    <div class="content-wrapper">
+                        <div class="row">
+
+                            <div class="col-md-6 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Delete Contact</h4>
+                                        <p class="card-description">
+                                            Are you sure you want to delete this?
+                                        </p>
+
+                                        <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input type="text" class="form-control" id="name" value="@Model.Contact.Name"  readonly/>
+                                        <label for="email">Email</label>
+                                        <input type="text" class="form-control" id="email" value="@Model.Contact.Gmail"  readonly/>
+                                        <label for="date">Date</label>
+                                        <input type="text" class="form-control" id="date" value="@Model.Contact.ContactDate"  readonly/>
+                                        <label for="content">Content</label>
+                                        <input type="text" class="form-control" id="content" value="@Model.Contact.ContactContent"  readonly/>
+                                        </div>
+
+
+                                        <form class="forms-sample" method="post">
+                                            <input type="hidden" asp-for="Contact.ContactId" />
+                                            <button type="submit" name="submit" class="btn btn-primary me-2">Submit</button>
+                                            <a asp-page="./Index" class="btn btn-light">Back to List</a>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <footer class="footer">
+                        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash.</span>
+                            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2021. All rights reserved.</span>
+                        </div>
+                    </footer>
+                </div>
+            </div>

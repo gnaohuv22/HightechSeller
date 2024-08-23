@@ -1,0 +1,136 @@
+﻿@page
+@model ProjectPRN221.Pages.adminsite.product.EditModel
+@{
+    ViewData["Title"] = "Update Product";
+    Layout = "_AdminLayout";
+}
+
+                <div class="container-scroller">
+
+    <partial name="/Pages/_HeaderAdminsite.cshtml" model="new ProjectPRN221.Pages._HeaderAdminsiteModel()" />
+
+    <partial name="/Pages/_LeftPageAdminSite.cshtml" model="new ProjectPRN221.Pages._LeftPageAdminSiteModel()" />ProjectPRN221
+                <!-- partial -->
+                <div class="main-panel">
+                    <div class="content-wrapper">
+                        @*LƯU Ý*@
+                           <form method="post" enctype="multipart/form-data"> 
+
+                                <div class="row">
+                                    <div class="col-md-12 grid-margin card">
+                                        <div class="card-body">
+                                            <h4 class="card-title">Update Product</h4>
+                                            <p class="card-description">
+                                                Fill all the bank
+                                            </p>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="card-body">
+
+                                                    <input type="hidden" asp-for="Product.ProductId">
+                                                    <input type="hidden" asp-for="Product.Image">
+
+                                                    <div class="form-group">
+                                                        <label asp-for="Product.ProductName" >Product Name</label>
+                                                        <input type="text" class="form-control" asp-for="Product.ProductName" 
+                                                        placeholder="Product Name" required>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label asp-for="Product.ListPrice" >List Price | VNĐ</label>
+                                                        <input type="text" class="form-control number" asp-for="Product.ListPrice" required>
+                                                        <span asp-validation-for="Product.ListPrice" class="badge badge-danger"></span>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="discount">Discount</label>
+                                                        <input type="text" class="form-control" asp-for="Product.Discount"
+                                                        placeholder="Discount" required>
+                                                        <span asp-validation-for="Product.Discount" class="badge badge-danger"></span>
+                                                    </div>
+
+                                                </div> 
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="card-body">
+
+                                                    <div class="form-group">
+
+                                                        <label asp-for="Product.CategoryId">Category</label>
+                                                        <select asp-for="Product.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+
+                                                    </div>
+
+                                                    <div class="form-group">
+
+                                                        <label asp-for="Product.BrandId">Brand</label>
+                                                        <select  asp-for="Product.BrandId" class="form-control" asp-items="ViewBag.BrandId"></select>
+
+                                                    </div>
+
+                                                    <div class="form-group">
+
+                                                        <label  asp-for="Product.Status">Status</label>
+                                                        <select asp-for="Product.Status" 
+                                                        asp-items="@(new SelectList(new List<SelectListItem>
+                                                        {
+                                                            new SelectListItem { Text = "Stocking", Value = "Stocking" },
+                                                            new SelectListItem { Text = "Sold out", Value = "Sold out" }
+                                                        }, "Value", "Text"))" 
+                                                        
+                                                        class="form-control">
+                                                        </select>
+                                                         
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-md-12">
+
+                                                <div class="card-body">
+
+                                                    <div class="form-group">
+
+                                                        <label asp-for="@Model.FileUploads">Image</label>
+                                                        <img id="preview-img" src="@Model.Product.Image" alt="@Model.Product.Image" style="width: 30%">
+                                                        <input type="file"  asp-for="@Model.FileUploads" 
+                                                         class="form-control" onchange="previewImage()" accept="image/*" >
+
+                                                    </div>
+
+                                                    <div class="form-group">
+
+                                                        <label asp-for="Product.SubDescription">Sub Description</label>
+                                                        <textarea  asp-for="Product.SubDescription"></textarea>
+
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label asp-for="Product.Description">Description</label>
+                                                        <textarea  asp-for="Product.Description"></textarea>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <div style="text-align: center; margin-bottom: 30px">
+                                                <button type="submit" name="submit" class="btn btn-primary me-2">Submit</button>
+                                                <button class="btn btn-light">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                 </div>
+                        </form>
+                    </div>
+
+                    <footer class="footer">
+                        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash.</span>
+                            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2021. All rights reserved.</span>
+                        </div>
+                    </footer>
+                </div>
+            </div>

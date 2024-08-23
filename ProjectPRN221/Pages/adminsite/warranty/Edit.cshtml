@@ -1,0 +1,69 @@
+﻿@page
+@model ProjectPRN221.Pages.adminsite.warranty.EditModel
+
+@{
+    ViewData["Title"] = "Update Warranty";
+    Layout = "_AdminLayout";
+}
+
+        <div class="container-scroller">
+
+    <partial name="/Pages/_HeaderAdminsite.cshtml" model="new ProjectPRN221.Pages._HeaderAdminsiteModel()" />
+
+    <partial name="/Pages/_LeftPageAdminSite.cshtml" model="new ProjectPRN221.Pages._LeftPageAdminSiteModel()" />
+
+                <!-- partial -->
+                <div class="main-panel">
+                    <div class="content-wrapper">
+                           <form class="forms-sample" method="post" enctype="multipart/form-data">
+                                <input type="hidden" asp-for="Warranty.WarrantyId">
+                                <input type="hidden" asp-for="Warranty.OrderdetailId">
+                                <input type="hidden" asp-for="Warranty.ProductId">
+                                <input type="hidden" asp-for="Warranty.CustomerId">
+                                <input type="hidden" asp-for="Warranty.ImageProduct">
+                                <input type="hidden" asp-for="Warranty.ProductStatus">
+                                <input type="hidden" asp-for="Warranty.WarrantyDate">
+                                <input type="hidden" asp-for="Warranty.WarrantyStatus">
+                                <input type="hidden" asp-for="Warranty.WarrantyDateAdmin">
+                                <input type="hidden" asp-for="Warranty.WarrantyQuantity">
+                                <input type="hidden" asp-for="Warranty.ImageProductAdmin">
+                                <input type="hidden" asp-for="Warranty.Status">
+                                <div class="row">
+                                    <div class="col-md-12 grid-margin card">
+                                        <div class="card-body">
+                                            <h4 class="card-title">Update Warranty</h4>
+                                            <p class="card-description">
+                                                Fill all the bank
+                                            </p>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card-body">
+                                                    <div class="form-group">
+                                                        <label asp-for="@Model.FileUploads">Image</label>
+                                                        <img id="preview-img" src="" alt="" style="width: 30%">
+                                                        <input type="file" asp-for="@Model.FileUploads"  class="form-control" onchange="previewImage()" accept="image/*">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="Warranty.ProductStatusAdmin">Status Product</label>
+                                                        <textarea  asp-for="Warranty.ProductStatusAdmin"></textarea>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                        <div style="text-align: center; margin-bottom: 30px">
+                                            <button type="submit" name="submit" class="btn btn-primary me-2">Submit</button>
+                                            <button class="btn btn-light">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                        </form>
+                    </div>
+                    <footer class="footer">
+                        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash.</span>
+                            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2021. All rights reserved.</span>
+                        </div>
+                    </footer>
+                </div>
+            </div>

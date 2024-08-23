@@ -1,0 +1,76 @@
+﻿@page
+@model ProjectPRN221.Pages.customersite.authenticate.login.IndexModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "CustomerLayout";
+}
+
+    @*HEADER*@
+<partial name="/Pages/_HeaderGuestSite.cshtml" model="new ProjectPRN221.Pages._HeaderGuestSiteModel()" />
+
+    @*BANNER*@
+        <section class="site-banner jarallax min-height300 padding-large" style="background: url(images/banner/macbook.jpg) no-repeat;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="page-title">Login</h1>
+                        <div class="breadcrumbs">
+                            <span class="item">
+                                <a href="HomeController">Home /</a>
+                            </span>
+                            <span class="item">Login</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    @*LOGIN*@
+        <section class="login-tabs padding-large no-padding-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="tabs-listing">
+                        <nav>
+                            <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
+                                <button class="nav-link active" id="nav-sign-in-tab" data-bs-toggle="tab" data-bs-target="#nav-sign-in" type="button" role="tab" aria-controls="nav-sign-in" aria-selected="true">Sign In</button>
+                            </div>
+                        </nav>
+
+                        @*FORM*@
+
+                        <form  method="post">
+
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade active show" id="nav-sign-in" role="tabpanel" aria-labelledby="nav-sign-in-tab">
+                                    <div class="form-group">
+                                        <label for="sign-in">Username or email address *</label>
+                                        <input type="text" minlength="2" name="username" placeholder="Your Username" class="u-full-width bg-light" required="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sign-in">Password *</label>
+                                        <input type="password" minlength="2" name="password" placeholder="Your Password" class="u-full-width bg-light" required="">
+                                        <h5>@Model.ErrorMess</h5>
+                                    </div>                
+                                    <label>
+                                        <input type="checkbox">
+                                        <span class="label-body">Remember Me</span>
+                                        <span class="label-body"><a href="/customersite/authenticate/forgotpassword" style="text-align: center">Forgot Password</a></span>
+                                        <span class="label-body"> Or </span>
+                                        <span class="label-body"><a href="/customersite/authenticate/register">Register</a></span>
+                                    </label>
+                                    <button type="submit" name="submit" class="btn btn-dark btn-full btn-medium">Login</button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr>
+
+
+    @*FOOTER*@

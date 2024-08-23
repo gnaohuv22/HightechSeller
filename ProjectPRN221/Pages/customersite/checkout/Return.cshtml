@@ -1,0 +1,65 @@
+﻿@page
+@model ProjectPRN221.Pages.customersite.checkout.ReturnModel
+@{
+    ViewData["Title"] = "Return VNPAY";
+    Layout = "CustomerLayout";
+}
+    
+    @*HEADER*@
+<partial name="/Pages/_HeaderCustomersite.cshtml" model="new ProjectPRN221.Pages._HeaderCustomerSiteModel()" />
+
+    @*BANNER*@
+        <section class="site-banner padding-small bg-light-grey">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="breadcrumbs">
+                            <span class="item" style="font-weight: bold">RETURN URL FROM VNPAY</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        @**@
+        <section class="shopify-cart checkout-wrap padding-large">
+            <div class="container">
+                        <form class="form-group" method="post">
+                            <div>
+                                <input type="hidden" name="paymentStatus" value="@Model.paymentStatus" />
+                            </div>
+                            <div>
+                                <input type="hidden" name="service" value="returnVNPAY" />
+                            </div>
+                            <div>
+                                <p style="font-weight: bold" class="item" >@Model.displayMsg</p>
+                            </div>
+                            <div>
+                                <p>Mã Website (Terminal ID): <span style="font-weight: bold" class="item">@Model.displayTmnCode</span></p>
+                            </div>
+                            <div>
+                                <p>Mã giao dịch thanh toán: <span style="font-weight: bold" class="item">@Model.displayTxnRef</span></p>
+                            </div>
+                            <div>
+                                <p>Mã giao dịch tại VNPAY: <span style="font-weight: bold" class="item">@Model.displayVnpayTranNo</span></p>
+                            </div>
+                            <div>
+                                <p>Số tiền thanh toán (VND): <span style="font-weight: bold" class="item">@Model.displayAmount</span></p>
+                            </div>
+                            <div>
+                                <p>Ngân hàng thanh toán: <span style="font-weight: bold" class="item">@Model.displayBankCode</span></p>
+                            </div>
+                            <div class="table-responsive">
+                                <button type="submit"> Back To Page </button>
+                            </div> 
+                        </form>
+            </div>
+        </section>
+
+
+     @*FOOTER*@
+<partial name="/Pages/_FooterCustomerSite.cshtml" model="new ProjectPRN221.Pages._FooterCustomerSiteModel()" />
+
+
+        <div id="cboxOverlay" style="display: none;"></div><div id="colorbox" class="" role="dialog" tabindex="-1" style="display: none;"><div id="cboxWrapper"><div><div id="cboxTopLeft" style="float: left;"></div><div id="cboxTopCenter" style="float: left;"></div><div id="cboxTopRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxMiddleLeft" style="float: left;"></div><div id="cboxContent" style="float: left;"><div id="cboxTitle" style="float: left;"></div><div id="cboxCurrent" style="float: left;"></div><button type="button" id="cboxPrevious"></button><button type="button" id="cboxNext"></button><button type="button" id="cboxSlideshow"></button><div id="cboxLoadingOverlay" style="float: left;"></div><div id="cboxLoadingGraphic" style="float: left;"></div></div><div id="cboxMiddleRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxBottomLeft" style="float: left;"></div><div id="cboxBottomCenter" style="float: left;"></div><div id="cboxBottomRight" style="float: left;"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none; max-width: none;"></div></div>

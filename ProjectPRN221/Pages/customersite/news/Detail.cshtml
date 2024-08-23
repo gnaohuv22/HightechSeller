@@ -1,0 +1,186 @@
+﻿@page
+@model ProjectPRN221.Pages.customersite.news.DetailModel
+@{
+    ViewData["Title"] = "News Detail";
+    Layout = "CustomerLayout";
+}
+
+        <style>
+            .image-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                z-index: 9999;
+            }
+            .image-overlay img {
+                display: block;
+                max-width: 80%;
+                max-height: 80%;
+                margin: 0 auto; /* Đặt margin thành 0 và auto để căn giữa ảnh */
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .active {
+                display: block;
+            }
+            .nav-button {
+                position: fixed;
+                top: 50%;
+                transform: translateY(-50%);
+                padding: 10px;
+                background: rgba(255, 255, 255, 0.5);
+                color: #000;
+                font-weight: bold;
+                cursor: pointer;
+                z-index: 9999;
+            }
+            .prev-button {
+                left: 10px;
+            }
+            .next-button {
+                right: 10px;
+            }
+        </style>
+
+    <!-- ================================================== -->
+
+
+    
+    @*HEADER*@
+    @if (!string.IsNullOrEmpty(@Model.isCustomerAuthenticated))
+    {
+    <partial name="/Pages/_HeaderCustomersite.cshtml" model="new ProjectPRN221.Pages._HeaderCustomerSiteModel()" />
+    }
+    else
+    {
+    <partial name="/Pages/_HeaderGuestSite.cshtml" model="new ProjectPRN221.Pages._HeaderGuestSiteModel()" />
+    }
+
+    @*BANNER*@
+            <section class="site-banner padding-small bg-light-grey">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="breadcrumbs">
+                            <span class="item">
+                                <a href="HomeController">Home /</a>
+                            </span>
+                            <span class="item">
+                                <a href="NewsCustomerController">News /</a>
+                            </span>
+                            <span class="item">Single Post</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    @*CONTENT*@
+            <div class="main-content d-flex flex-wrap padding-large">
+            <div class="container">
+           
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="post-meta">
+                            <span class="post-date">@Model.Newsview.day @Model.Newsview.month, @Model.Newsview.year</span> / <a href="/customersite/news" class="blog-categories">@Model.News.Newsgroup.NewsgroupName</a>
+                        </div>
+                        <h1 class="page-title">@Model.News.Title</h1>
+                        <div class="feature-image">
+                            <img src="@Model.News.Image" alt="post image" class="jarallax-img">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="post-content">
+                        <p><strong>@Model.News.Title</strong></p>
+                        <p> @Html.Raw(Model.News.Content)</p>
+                            <div class="post-tags">
+                                <div class="block-tag">
+                                    <ul class="list-unstyled d-flex">
+                                        <li>
+                                            <a href="#" class="btn btn-dark btn-small btn-rounded">Fashion</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn btn-dark btn-small btn-rounded">Hoodie</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn btn-dark btn-small btn-rounded">Casual</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="social-links d-flex margin-small">
+                                <div class="element-title">Share:</div>
+                                <ul class="d-flex list-unstyled">
+                                    <li>
+                                        <a href="#"><i class="icon icon-facebook"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="icon icon-twitter"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="icon icon-instagram"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="icon icon-youtube-play"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        @*Related News*@
+        <section id="flash-sales" class="product-store padding-large">
+            <div class="container">
+                <div class="section-header d-flex flex-wrap align-items-center justify-content-between">
+                    <h3 class="section-title">Related News</h3>
+                    <div class="btn-wrap align-right">
+                        <a href="NewsCustomerController" class="d-flex align-items-center">Read All Articles <i class="icon icon icon-arrow-io"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="swiper product-swiper overflow-hidden">
+                    <div class="swiper-wrapper section-header align-items-center justify">
+                    @foreach(var item in Model.RelateNews)
+                    {
+                        <div class="swiper-slide  post-item product-item">
+                            <div class="image-holder zoom-effect">
+                                <a href="/customersite/news/Detail?id=@item.NewsId">
+                                    <img src="@item.Image" alt="post" class="post-image">
+                                </a>
+                            </div>
+                            <div class="post-content d-flex">
+                                <div class="meta-date" style="margin-right: 20px; margin-top: 23px">
+                                    <div class="meta-day text-primary">25</div>
+                                    <div class="meta-month">Augurt-7</div>
+                                </div>
+                                <div class="post-header">
+                                    <h4 class="post-title">
+                                        <a href="/customersite/news/Detail?id=@item.NewsId">@item.Title</a>
+                                    </h4>
+                                    <a href="/customersite/news/Detail" class="blog-categories">@item.Newsgroup.NewsgroupName</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </section>
+
+
+     @*FOOTER*@
+<partial name="/Pages/_FooterCustomerSite.cshtml" model="new ProjectPRN221.Pages._FooterCustomerSiteModel()" />
+
